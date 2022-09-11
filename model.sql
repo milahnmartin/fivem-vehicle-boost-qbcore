@@ -1,0 +1,3 @@
+CREATE TABLE `boosting_players`(`citizenid` VARCHAR(50) PRIMARY KEY NOT NULL,`license` VARCHAR(255) NOT NULL, `name` VARCHAR(255) NOT NULL, `boosting_score` INT,`last_boost` TEXT);
+CREATE TABLE `availible_boosting_contracts`(`boostId` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,`model` VARCHAR(55) NOT NULL,`xpGain` INT,`xpLost` INT,`spawnLocation` TEXT,`deliveryLocation` TEXT, `requireSecurityDevice` BOOLEAN,`notifyPolice` BOOLEAN);
+CREATE TABLE `boosting_assigned_contracts`(`boostingContractId` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,`citizenId` VARCHAR(55),`assignedId` INT NOT NULL,FOREIGN KEY (`assignedId`) REFERENCES `availible_boosting_contracts`(`boostId`)); 
