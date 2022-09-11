@@ -1,26 +1,12 @@
 QBCore = exports['qb-core']:GetCoreObject()
-BoostingConfig = BoostingConfig
-
-RegisterNetEvent('qb-vehicleboost:NotifyUser',function(message, type)
-    QBCore.Functions.Notify(message, type)
-end)
-
-
-
-QBCore.Functions.CreateUseableItem("boosting_laptop", function(source, item)
-  local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent("qb-vehicleboosting:trigger-laptop", source, item.name)
-end)
-
-
-RegisterNetEvent('qb-boosting:test', function(data)
-	local src = source
-	local Player = QBCore.Functions.GetPlayer(src)
-  print(BoostingConfig)
---   MySQL.insert('INSERT INTO boosting_players (citizenid, license, name) VALUES (?, ?, ?)', {
---     Player.PlayerData.citizenid,
---     Player.PlayerData.license,
---     Player.PlayerData.name,
- 
--- })
+RegisterNetEvent('qb-heist:addPlayer')
+AddEventHandler("qb-heist:addPlayer",function(source)
+  local result = MySQL.query.await('SELECT COUNT(*) FROM ultrafy_heist_data WHERE userStarted = ?', { source })
+  if result[1] ~= nil then
+    print(result[1]['COUNT(*)'])
+    QBCore.Functions.Notify(QBCore.Functions.GetPlayerByCitizenId(source), "You have already started this heist.","error",20)
+    return
+  end
+  print("PENIS")
+  MySQL.insert('INSERT INTO ultrafy_heist_data(userStarted,TimeStarted,CurrentlyActive)VALUES(?,TIME(NOW()),?)', {source,true})
 end)
