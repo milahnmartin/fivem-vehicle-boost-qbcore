@@ -14,7 +14,7 @@ body {
   background-color: black;
   width: 80%;
   height: 90%;
-  visibility: visible;
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,13 +103,14 @@ body {
   width: 90%;
   background-color: black;
   z-index: 1;
-  visibility: visible;
+  visibility: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .modal-inner {
-  border: 1px solid red;
+  border: 2px solid grey;
+  border-radius: 20px;
 }
 
 .modal-info {
@@ -123,7 +124,6 @@ body {
 
 .modal-info progress {
   width: 50%;
-  height: 100%;
 }
 
 .modal-info button {
@@ -133,11 +133,29 @@ body {
   outline: none;
   color: black;
   font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal-info button:hover {
+  cursor: pointer;
+  background-color: #526067;
+  color: white;
 }
 
 .modal-info progress::after {
-  content: "B";
+  content: attr(data-min);
   color: white;
+  position: relative;
+  right: -100%;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.modal-info progress::before {
+  content: attr(data-max);
+  color: white;
+  position: relative;
+  right: 4%;
+  font-family: "Courier New", Courier, monospace;
 }
 .modal-contracts {
   display: flex;
